@@ -13,7 +13,12 @@
 ## comfyui vs webui
 ### 속도
 ### compyui 완승이다. webui는 너무 느리다. 최적화가 확실히 필요하다.
-### <br/>
+### 유튜브 등 여러 영상을 참고해봤지만 webui는 보통 편집해서 짧게 보여주는 경우가 많았다. 그런데 다른 영상을 보더라도 아주 좋은 GPU가 아닌 이상 webui는 몇 분 씩 걸리는 경우가 많았다. 
+### comfyui는 유튜브에서 편집 안 하는 화면을 보여주는 경우가 많았다. 어떤 영상에서는 0.7초에 한 장씩 생성하는 것도 보았다. 이 케이스 같은 경우 lcm lora를 활용하여 step 수를 4~8 정도로 줄였다.
+### 자세한 건 lcm lora를 참고
+#### [블로그 - LCM-LoRA - 초고속 스테이블 디퓨전](https://www.internetmap.kr/entry/LCM-LoRA-very-fast-stable-diffusion)
+#### [다운로드 링크](https://huggingface.co/latent-consistency)
+### <br/><br/>
 
 ### 패키지, python 버전
 ### webui가 훨씬 구버전이다. 240910 기준 python은 3.10.6이고, torch에서 cudnn은 8.x 버전을 쓴다.
