@@ -18,10 +18,18 @@
 ### 자세한 건 lcm lora를 참고
 #### [블로그 - LCM-LoRA - 초고속 스테이블 디퓨전](https://www.internetmap.kr/entry/LCM-LoRA-very-fast-stable-diffusion)
 #### [다운로드 링크](https://huggingface.co/latent-consistency)
+### <br/>
+
+### webui는 새로고침과 모델 불러오기도 느렸다. 모델 불러오는 데에만 짧으몇 몇 십초에서 수 분이 걸렸다.
+### comfyui는 새로고침은 거의 실시간, 불러오는 것도 수 초 ~ 수십 초면 불러와졌다.
 ### <br/><br/>
 
 ## 패키지, python 버전
 ### webui가 훨씬 구버전이다. 240910 기준 python은 3.10.6이고, torch에서 cudnn은 8.x 버전을 쓴다.
 ### 물론 comfyui도 구버전인 게 있지만 수정하면 될 듯 하다. python version은 3.11, torch에서 cudnn은 9.x을 쓴다.
-### <br/>
+### <br/><br/>
+
+## 기능
+### webui가 기본적으로 제공되는 기능은 훨씬 많다.
+### 다만 comfyui가 workflow 구성을 하고 customizing 하는 데에는 훨씬 좋다.
 
