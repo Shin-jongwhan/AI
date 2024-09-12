@@ -1,2 +1,2 @@
-# 생성형 AI 정리 공간
+# AI (Artificial Intelligence) 정리 공간
 ### <br/><br/><br/>
