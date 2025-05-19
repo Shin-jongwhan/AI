@@ -1,6 +1,7 @@
 ### 250519
 ## docker 
 ### docker로 매우 간단하게 실행해볼 수 있다.
+### 그리고 매우 빠르다 ! 내 GPU로도 chatgpt와 거의 같은 속도로 출력된다.
 ```
 docker run -itd --gpus=all -v C:\docker_volume\llama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
