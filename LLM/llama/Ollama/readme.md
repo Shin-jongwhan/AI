@@ -23,5 +23,10 @@ ollama run llama3
 ### curl test
 ```
 curl -X POST -H "Content-Type: application/json" -d '{"model": "llama3", "prompt": "What is the capital of France?", "stream": false}' http://localhost:11434/api/generate
+```
+#### <br/>
 
+### curl 결과
+```
+{"model":"llama3","created_at":"2025-05-24T23:49:24.170118127Z","response":"The capital of France is Paris.","done":true,"done_reason":"stop","context":[128006,882,128007,271,3923,374,279,6864,315,9822,30,128009,128006,78191,128007,271,791,6864,315,9822,374,12366,13],"total_duration":295476021,"load_duration":90953805,"prompt_eval_count":17,"prompt_eval_duration":1234433,"eval_count":8,"eval_duration":202826940}
 ```
