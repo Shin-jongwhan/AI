@@ -38,8 +38,8 @@ Start (s),End (s),Segment
 ### <br/>
 
 ### 사용 방법은 일단 model_path를 등록하고 2가지로 구분된다.
-- manifest.json을 만들어서 사용. 이걸 사용하는 것을 추천한다.
-- audio_dir 옵션 사용. audio dir를 하나 만들고 그 안에 오디오 파일들을 넣으면 된다. 별도 정리는 안 하겠음.
+- manifest.json을 만들어서 사용. 
+- audio_dir 옵션 사용. audio dir를 하나 만들고 그 안에 오디오 파일들을 넣으면 된다.
 ### <br/>
 
 ### manifest.json 사용
