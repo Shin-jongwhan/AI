@@ -68,3 +68,13 @@ python transcribe_speech.py   model_path=/usr/local/src/nvidia/parakeet-tdt-0.6b
 python transcribe_speech.py   model_path=/usr/local/src/nvidia/parakeet-tdt-0.6b-v2.nemo   audio_dir=/root/audio   output_filename=/root/output.json   clean_groundtruth_text=True   langid='en'   batch_size=32 
   timestamps=False   compute_langs=False   cuda=0   amp=True
 ```
+### <br/><br/>
+
+## 알아두어야 할 것
+### 오디오 파일은 꼭 stereo가 아닌 mono여야 한다.
+### 그래서 먼저 stereo인지, mono인지 검사한 후 stereo이면 mono로 검사하여 진행한다.
+```
+ffprobe -i /data/test_audio.mp3 -show_streams -select_streams a -loglevel error | grep channels
+ffmpeg -i /data/test_audio.mp3 -ac 1 /data/test_audio_mono.mp3
+```
+#### ![image](https://github.com/user-attachments/assets/f3d8388e-5126-4dd5-9c94-ca9dbb9c76f3)
