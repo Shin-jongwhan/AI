@@ -18,3 +18,10 @@ docker exec -it ollama /bin/bash
 ollama run llama3
 ```
 #### ![image](https://github.com/user-attachments/assets/e39f3e26-aac5-4ef1-9eb2-151119b2483c)
+### <br/>
+
+### curl test
+```
+curl -X POST -H "Content-Type: application/json" -d '{"model": "llama3", "prompt": "What is the capital of France?", "stream": false}' http://localhost:11434/api/generate
+
+```
