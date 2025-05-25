@@ -83,12 +83,43 @@ https://github.com/user-attachments/assets/eacd06b1-805e-4270-8133-df9d74b86f10
 
 ## whisper 명령어
 ### whisper 명령어를 이용하면 오디오 파일에서 자막으로 추출할 수 있다. 꽤 정확하고 빠르다. 20분 짜리 오디오인데, 1분에 5분 정도는 처리하는 것 같다.
-### 그런데 오디오가 크면 중간중간에 빈번하지는 않지만 빼먹는 구간이 생긴다. 그래서 좋은 방법으로는 audio 파일이 크면 일부 겹치게 해서 쪼갠 뒤에 whisper로 output을 출력하고, 나중에 병합하는 방식으로 해도 좋을 것 같다.
+#### 그런데 오디오가 크면 중간중간에 빈번하지는 않지만 빼먹는 구간이 생긴다. 그래서 좋은 방법으로는 audio 파일이 크면 일부 겹치게 해서 쪼갠 뒤에 whisper로 output을 출력하고, 나중에 병합하는 방식으로 해도 좋을 것 같다.
+### 잘리는 것을 해결하려면 다음 옵션을 사용해본다.
+- --temperature : 0.5 정도. 높이면 덜 보수적으로 인식해서 누락된 구간을 더 잘 포착한다.
+- language ko : 언어를 지정
 ```
 whisper test_audio.mp3 --model medium
+# 정확도를 높이는 추천 옵션들
+whisper vocals.wav --model large --language ko --temperature 0.4 --output_format all --beam_size 5 --best_of 5 --condition_on_previous_text False --fp16 False
+# 음성 인식 threshold 조절
+whisper louder.wav --model large --language ko --temperature 0.7 --output_format all --beam_size 5 --best_of 5 --condition_on_previous_text False --fp16 False --no_speech_threshold 0.3 --logprob_threshold -2.0 --compression_ratio_threshold 4.0
 ```
 #### ![image](https://github.com/user-attachments/assets/5ee363c1-4e31-4b07-a2f8-7c838a42af58)
 ### <br/>
 
 ### 다 실행되면 이렇게 output으로 파일을 만들어준다.
 #### ![image](https://github.com/user-attachments/assets/c83f70c3-3df3-4327-9e34-c1b2d717e21f)
+### <br/><br/>
+
+## 오디오에 대한 추가 작업
+### 목소리를 구분하는 데에 뒷배경 소리가 들리면 구분을 잘 못 하기 때문에 소리를 나눌 필요성이 있다. 이때 사용할 수 있는 게 demucs이다. 
+```
+pip install demucs
+```
+### <br/>
+
+### 실행
+```
+demucs test_audio_001856_001935.mp3
+```
+### <br/>
+
+### 그러면 이렇게 목소리랑 배경 소리들을 구분해서 추출할 수 있다. 
+#### ![image](https://github.com/user-attachments/assets/cab3b11b-43f1-40dd-bc42-edc46369c52b)
+### <br/>
+
+### 오디오 볼륨 크기 키우기
+### 볼륨이 작으면 잘 인식을 못 할 수도 있음.
+```
+ffmpeg -i vocals.wav -filter:a "volume=3.0" louder.wav
+```
