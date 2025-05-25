@@ -79,3 +79,15 @@ while True:
 
 https://github.com/user-attachments/assets/eacd06b1-805e-4270-8133-df9d74b86f10
 
+### <br/><br/>
+
+## whisper 명령어
+### whisper 명령어를 이용하면 오디오 파일에서 자막으로 추출할 수 있다. 꽤 정확하고 빠르다. 20분 짜리 오디오인데, 1분에 5분 정도는 처리하는 것 같다.
+```
+whisper test_audio.mp3 --model medium
+```
+#### ![image](https://github.com/user-attachments/assets/5ee363c1-4e31-4b07-a2f8-7c838a42af58)
+### <br/>
+
+### 다 실행되면 이렇게 output으로 파일을 만들어준다.
+#### ![image](https://github.com/user-attachments/assets/c83f70c3-3df3-4327-9e34-c1b2d717e21f)
