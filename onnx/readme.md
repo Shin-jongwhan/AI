@@ -51,3 +51,61 @@ pip install transformers[onnx]
 ```
 python -m transformers.onnx --model=sionic-ai/nllb-200-ko-gec-3.3B --opset=17 /root/.cache/huggingface/hub/models--sionic-ai--nllb-200-ko-gec-3.3B/onnx
 ```
+### <br/>
+
+### 테스트
+```
+import onnxruntime as ort
+import numpy as np
+from transformers import AutoTokenizer
+import time
+
+print("🚀 실행 디바이스:", ort.get_device())  # "GPU" 출력되면 성공
+
+# 모델 및 토크나이저 경로
+model_path = "/root/.cache/huggingface/hub/models--sionic-ai--nllb-200-ko-gec-3.3B/onnx/model.onnx"
+tokenizer_path = "/root/.cache/huggingface/hub/models--sionic-ai--nllb-200-ko-gec-3.3B/snapshots/413b34e43ffe8c7c5c431d9eb843e7102b0c994d"
+
+# 입력 텍스트
+input_text = "나는 어제 도서관에 갔습니다 그리고 책을 읽었다"
+
+# 🔹 1. 토크나이저 로드
+start = time.time()
+tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
+print(f"⏱️ Tokenizer 로드 시간: {time.time() - start:.2f}초")
+
+# 🔹 2. 입력 텍스트 토크나이즈
+start = time.time()
+inputs = tokenizer(input_text, return_tensors="np")
+print(f"⏱️ 토크나이징 시간: {time.time() - start:.2f}초")
+
+# 🔹 3. ONNX 세션 초기화
+start = time.time()
+# 초기화 성능 분석 가능 + 멀티스레딩 조절
+so = ort.SessionOptions()
+so.enable_profiling = True
+so.intra_op_num_threads = 4  # CPU 연산 병렬 수 조절
+# 세션 초기화
+session = ort.InferenceSession(model_path, sess_options=so, providers=["CUDAExecutionProvider"])
+print(f"⏱️ ONNX 세션 초기화 시간: {time.time() - start:.2f}초")
+
+# 🔹 4. 추론
+start = time.time()
+onnx_inputs = {k: v for k, v in inputs.items()}
+outputs = session.run(None, onnx_inputs)
+print(f"⏱️ ONNX 추론 시간: {time.time() - start:.2f}초")
+
+# 🔹 5. 결과 디코딩
+start = time.time()
+output_ids = np.argmax(outputs[0], axis=-1)
+decoded = tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+print(f"⏱️ 디코딩 시간: {time.time() - start:.2f}초")
+
+# 출력
+print("\n📝 원본 문장:", input_text)
+print("✅ 교정된 문장:", decoded[0])
+```
+### <br/>
+
+### 테스트 결과... torch model보다 모델 로딩 시간(90초)이 느리다. 다른 건 빠른데 모델 로딩 시간을 어떻게 해결하고 싶다.
+- ⏱️ ONNX 세션 초기화 시간: 351.14초
