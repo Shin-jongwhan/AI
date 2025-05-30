@@ -102,4 +102,8 @@ curl -X POST http://localhost:8000/unload
 #### ![image](https://github.com/user-attachments/assets/c2179b76-dd47-438d-96bd-a70418b89a76)
 ### <br/>
 
-### 여기서 문제가 왜 계속 CPU 리소스를 사용하고 있는지 잘 모르겠다.
+## VS code remote 접속 문제
+### 여기서 문제가 왜 계속 CPU 리소스를 사용하고 있다.
+### vscode에서 remote로 접속하면 뭔가 리소스 상에서 충돌이 있다. 
+### 그래서 그냥 docker exec로 접속하니까 괜찮다(리소스 계속 잡고 있는 것 없음). 코드 상에는 문제 없는 것을 확인했다.
+
